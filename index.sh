@@ -27,6 +27,8 @@ INSTALL_DIR="${1:-/usr/local/bin}"
 
 SURREALDB_ROOT="https://download.surrealdb.com"
 
+SURREALDB_VERS="https://version.surrealdb.com"
+
 install() {
 
     echo ""
@@ -77,11 +79,11 @@ install() {
     local _ver
 
     if [ "$_cmd" = curl ]; then
-        _ver=$(curl --silent --fail --location "$SURREALDB_ROOT/latest.txt") || {
+        _ver=$(curl --silent --fail --location "$SURREALDB_VERS") || {
             err "Error: could not fetch the latest SurrealDB version number"
         }
     elif [ "$_cmd" = wget ]; then
-        _ver=$(wget --quiet "$SURREALDB_ROOT/latest.txt") || {
+        _ver=$(wget --quiet "$SURREALDB_VERS") || {
             err "Error: could not fetch the latest SurrealDB version number"
         }
     fi
@@ -229,9 +231,12 @@ function Install {
     # Specify the base url for binary files
     $BaseUrl = "https://download.surrealdb.com"
     
+    # Specify the base url for version info
+    $VersUrl = "https://version.surrealdb.com"
+    
     # Fetch the latest SurrealDB version
     Write-Output "Fetching the latest database version..."
-    $Version = (Invoke-WebRequest $BaseUrl/latest.txt -UseBasicParsing).Content
+    $Version = (Invoke-WebRequest $VersUrl -UseBasicParsing).Content
 
     # Compute the current system architecture
     Write-Output "Fetching the host system architecture..."
