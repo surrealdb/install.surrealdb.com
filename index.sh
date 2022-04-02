@@ -29,6 +29,16 @@ SURREALDB_ROOT="https://download.surrealdb.com"
 
 SURREALDB_VERS="https://version.surrealdb.com"
 
+expand() {
+    case "$1" in
+    (\~)        echo "$HOME";;
+    (\~/*)      echo "$HOME/${1#\~/}";;
+    (\~[^/]*/*) local user=$(eval echo ${1%%/*}) && echo "$user/${1#*/}";;
+    (\~[^/]*)   eval echo ${1};;
+    (*)         echo "$1";;
+    esac
+}
+
 install() {
 
     echo ""
@@ -157,7 +167,7 @@ install() {
     if [ ! $(mkdir -p "$_loc") ]; then
         echo ""
         read -p "Where would you like to install the 'surreal' binary [~/.surrealdb]? " _loc
-        _loc=${_loc:-"~/.surrealdb"} && _loc="${_loc/#\~/$HOME}"
+        _loc=${_loc:-~/.surrealdb} && _loc=$(expand "$_loc")
         mkdir -p "$_loc"
     fi
 
