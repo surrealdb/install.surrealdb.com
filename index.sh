@@ -138,7 +138,7 @@ install() {
 
     local _url
 
-    _url="${SURREALDB_ROOT}/surreal-${_ver}.${_arc}.${_ext}"
+    _url="${SURREALDB_ROOT}/${_ver}/surreal-${_ver}.${_arc}.${_ext}"
     
     # Download and unarchive the latest SurrealDB binary
 
@@ -253,7 +253,7 @@ function Install {
     $Arch = "windows-" + $env:PROCESSOR_ARCHITECTURE.ToLower()
     
     # Define the latest SurrealDB download url
-    $DownloadUrl = "$BaseUrl/surreal-${Version}.${Arch}.exe"
+    $DownloadUrl = "$BaseUrl/${Version}/surreal-${Version}.${Arch}.exe"
 
     # Download and unarchive the latest SurrealDB binary
     Write-Output "Installing surreal-$Version for $Arch..."
