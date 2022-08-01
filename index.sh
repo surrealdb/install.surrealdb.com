@@ -170,8 +170,8 @@ install() {
         _loc=${_loc:-~/.surrealdb} && _loc=$(expand "$_loc")
         mkdir -p "$_loc"
     fi
-
-    mv "surreal-${_ver}.${_arc}/surreal" "$_loc" 2>/dev/null || {
+        
+    mv "surreal" "$_loc" 2>/dev/null || {
         err "Error: we couldn't install the 'surreal' binary into $_loc"
     }
     
