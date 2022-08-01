@@ -163,8 +163,10 @@ install() {
     # Install the SurrealDB binary into the specified directory
 
     local _loc="$INSTALL_DIR"
-
-    if [ ! $(mkdir -p "$_loc") ]; then
+        
+    mkdir -p "$_loc" 2>/dev/null
+    
+    if [ ! -d "$_loc" ] || ! touch "$_loc/surreal" 2>/dev/null; then
         echo ""
         read -p "Where would you like to install the 'surreal' binary [~/.surrealdb]? " _loc
         _loc=${_loc:-~/.surrealdb} && _loc=$(expand "$_loc")
