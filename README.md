@@ -21,5 +21,5 @@ curl -sSf https://install.surrealdb.com | sh
 #### Install on Windows
 
 ```bash
-iwr https://install.surrealdb.com -useb | iex
+iwr https://windows.surrealdb.com -useb | iex
 ```
