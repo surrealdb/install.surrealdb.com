@@ -186,7 +186,7 @@ install() {
     echo "To see the command-line options run:"
     echo "  surreal help"
     echo "To start an in-memory database server run:"
-    echo "  surreal start --log-level debug --path memory"
+    echo "  surreal start --log debug --user root --pass root memory"
     echo "For help with getting started visit:"
     echo "  https://surrealdb.com/docs"
     echo ""
