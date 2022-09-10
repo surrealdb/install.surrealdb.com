@@ -9,13 +9,13 @@ If you prefer not using a package manager or Docker, then the easiest and prefer
 #### Install on macOS
 
 ```bash
-curl -sSf https://install.surrealdb.com | sh
+curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
 ```
 
 #### Install on Linux
 
 ```bash
-curl -sSf https://install.surrealdb.com | sh
+curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
 ```
 
 #### Install on Windows
