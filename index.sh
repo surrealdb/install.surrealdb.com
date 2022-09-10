@@ -141,7 +141,7 @@ install() {
         curl --silent --fail --location "$_url" --output "surreal-${_ver}.${_arc}.${_ext}" || {
             err "Error: could not fetch the latest SurrealDB file"
         }
-    elif [ "$r_cmd" = wget ]; then
+    elif [ "$_cmd" = wget ]; then
         wget --quiet "$_url" -O "surreal-${_ver}.${_arc}.${_ext}" || {
             err "Error: could not fetch the latest SurrealDB file"
         }
