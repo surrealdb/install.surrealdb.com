@@ -14,6 +14,8 @@
 
 set -u
 
+NIGHTLY=false
+
 INSTALL_DIR="${1:-/usr/local/bin}"
 
 SURREALDB_ROOT="https://download.surrealdb.com"
@@ -42,7 +44,15 @@ install() {
     echo "Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P"
     echo " 'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'"
     echo ""
-
+    
+    # Check for nightly option
+    
+    for flag in "$@"; do
+        case $flag in
+            --nightly) NIGHTLY=true;;
+        esac
+    done
+    
     # Check for necessary commands
 
     command -v uname >/dev/null 2>&1 || {
@@ -78,15 +88,23 @@ install() {
     echo "Fetching the latest database version..."
 
     local _ver
+    
+    if [ "$NIGHTLY" = true ]; then
+        
+        _ver="nightly"
+    
+    else
 
-    if [ "$_cmd" = curl ]; then
-        _ver=$(curl --silent --fail --location "$SURREALDB_VERS") || {
-            err "Error: could not fetch the latest SurrealDB version number"
-        }
-    elif [ "$_cmd" = wget ]; then
-        _ver=$(wget --quiet "$SURREALDB_VERS") || {
-            err "Error: could not fetch the latest SurrealDB version number"
-        }
+        if [ "$_cmd" = curl ]; then
+            _ver=$(curl --silent --fail --location "$SURREALDB_VERS") || {
+                err "Error: could not fetch the latest SurrealDB version number"
+            }
+        elif [ "$_cmd" = wget ]; then
+            _ver=$(wget --quiet "$SURREALDB_VERS") || {
+                err "Error: could not fetch the latest SurrealDB version number"
+            }
+        fi
+        
     fi
 
     # Compute the current system architecture
