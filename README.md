@@ -6,20 +6,18 @@ This repository houses the install script located at [install.surrealdb.com](htt
 
 If you prefer not using a package manager or Docker, then the easiest and preferred way to get going with SurrealDB is to run one of the following commands in your terminal.
 
-#### Install on macOS
+### Latest release
+
+#### Install on macOS / Unix / Linux
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
 ```
 
-#### Install on Linux
+### Nightly release
+
+#### Install on macOS / Unix / Linux
 
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
-```
-
-#### Install on Windows
-
-```bash
-iwr https://windows.surrealdb.com -useb | iex
+curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh -s -- --nightly
 ```
