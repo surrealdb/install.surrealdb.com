@@ -16,7 +16,7 @@ set -u
 
 NIGHTLY=false
 
-INSTALL_DIR="${1:-/usr/local/bin}"
+INSTALL_DIR="/usr/local/bin"
 
 SURREALDB_ROOT="https://download.surrealdb.com"
 
@@ -52,6 +52,12 @@ install() {
             --nightly) NIGHTLY=true;;
         esac
     done
+
+    # Check for install directory
+
+    if [ "$1" !=  "--nightly" ]; then
+        INSTALL_DIR="$1";
+    fi
     
     # Check for necessary commands
 
