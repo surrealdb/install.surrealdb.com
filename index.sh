@@ -55,7 +55,7 @@ install() {
 
     # Check for install directory
 
-    if [ "$1" !=  "--nightly" ]; then
+    if [ -v 1 ] && [ "$1" !=  "--nightly" ]; then
         INSTALL_DIR="$1";
     fi
     
