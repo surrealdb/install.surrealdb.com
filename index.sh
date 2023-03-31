@@ -55,8 +55,10 @@ install() {
 
     # Check for install directory
 
-    if [ -v 1 ] && [ "$1" !=  "--nightly" ]; then
-        INSTALL_DIR="$1";
+    if [ $# -gt 1 ]; then
+        if [ "$1" !=  "--nightly" ]; then
+            INSTALL_DIR="$1";
+        fi
     fi
     
     # Check for necessary commands
