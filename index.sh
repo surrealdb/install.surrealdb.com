@@ -14,6 +14,8 @@
 
 set -u
 
+VERSION=""
+
 NIGHTLY=false
 
 INSTALL_DIR="/usr/local/bin"
@@ -45,22 +47,31 @@ install() {
     echo " 'Y8888P'   'Y88888 888     888      'Y8888  'Y888888 888 8888888P'  8888888P'"
     echo ""
     
-    # Check for nightly option
-    
-    for flag in "$@"; do
-        case $flag in
-            --nightly) NIGHTLY=true;;
+    # Parse script arguments
+
+    while [ $# -ge 1 ]; do
+        case "$1" in
+            -n|--nightly)
+                NIGHTLY=true
+                ;;
+            -v|--version)
+                VERSION="$2"
+                shift
+                ;;
+            *)
+                INSTALL_DIR="$1"
+                shift
+                ;;
         esac
+        shift
     done
 
-    # Check for install directory
+    # Check for correct version
 
-    if [ $# -gt 1 ]; then
-        if [ "$1" !=  "--nightly" ]; then
-            INSTALL_DIR="$1";
-        fi
+    if [ "$NIGHTLY" == "true" ] && [ "$VERSION" != "" ]; then
+        err "Error: select either a version or the nightly release"
     fi
-    
+
     # Check for necessary commands
 
     command -v uname >/dev/null 2>&1 || {
@@ -100,6 +111,10 @@ install() {
     if [ "$NIGHTLY" = true ]; then
         
         _ver="nightly"
+
+    elif [ "$VERSION" != "" ]; then
+
+        _ver="$VERSION"
     
     else
 
@@ -156,7 +171,7 @@ install() {
     local _url
 
     _url="${SURREALDB_ROOT}/${_ver}/surreal-${_ver}.${_arc}.${_ext}"
-    
+
     # Download and unarchive the latest SurrealDB binary
 
     cd /tmp
