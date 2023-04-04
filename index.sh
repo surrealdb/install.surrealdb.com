@@ -68,8 +68,10 @@ install() {
 
     # Check for correct version
 
-    if [ "$NIGHTLY" == "true" ] && [ "$VERSION" != "" ]; then
-        err "Error: select either a version or the nightly release"
+    if [ "$NIGHTLY" = true ]; then
+        if [ "$VERSION" != "" ]; then
+            err "Error: select either a version or the nightly release"
+        fi
     fi
 
     # Check for necessary commands
