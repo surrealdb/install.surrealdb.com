@@ -16,13 +16,13 @@ set -u
 
 VERSION=""
 
+BETA=false
+
 NIGHTLY=false
 
 INSTALL_DIR="/usr/local/bin"
 
 SURREALDB_ROOT="https://download.surrealdb.com"
-
-SURREALDB_VERS="https://version.surrealdb.com"
 
 expand() {
     case "$1" in
@@ -54,6 +54,9 @@ install() {
             -n|--nightly)
                 NIGHTLY=true
                 ;;
+            -b|--beta)
+                BETA=true
+                ;;
             -v|--version)
                 VERSION="$2"
                 shift
@@ -71,6 +74,16 @@ install() {
     if [ "$NIGHTLY" = true ]; then
         if [ "$VERSION" != "" ]; then
             err "Error: select either a version or the nightly release"
+        fi
+
+        if [ "$BETA" = true ]; then
+            err "Error: select either the beta release or the nightly release"
+        fi
+    fi
+
+    if [ "$BETA" = true ]; then
+        if [ "$VERSION" != "" ]; then
+            err "Error: select either a version or the beta release"
         fi
     fi
 
@@ -106,30 +119,32 @@ install() {
 
     # Fetch the latest SurrealDB version
 
-    echo "Fetching the latest database version..."
-
     local _ver
     
     if [ "$NIGHTLY" = true ]; then
-        
+
+        echo "Fetching the latest nightly version..."
+
         _ver="nightly"
 
+    elif [ "$BETA" = true ]; then
+
+        echo "Fetching the latest beta version..."
+
+        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/beta.txt" "Error: could not fetch the latest SurrealDB beta version number")
+
     elif [ "$VERSION" != "" ]; then
+
+        echo "Fetching $VERSION..."
 
         _ver="$VERSION"
     
     else
 
-        if [ "$_cmd" = curl ]; then
-            _ver=$(curl --silent --fail --location "$SURREALDB_VERS") || {
-                err "Error: could not fetch the latest SurrealDB version number"
-            }
-        elif [ "$_cmd" = wget ]; then
-            _ver=$(wget --quiet "$SURREALDB_VERS") || {
-                err "Error: could not fetch the latest SurrealDB version number"
-            }
-        fi
-        
+        echo "Fetching the latest database version..."
+
+        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/latest.txt" "Error: could not fetch the latest SurrealDB release version number")
+
     fi
 
     # Compute the current system architecture
@@ -242,6 +257,18 @@ install() {
 
 err() {
     echo "$1" >&2 && exit 1
+}
+
+fetch() {
+    if [ "$1" = curl ]; then
+        curl --silent --fail --location "$2" || {
+            err "$3"
+        }
+    elif [ "$1" = wget ]; then
+        wget --quiet "$2" || {
+            err "$3"
+        }
+    fi
 }
 
 install "$@" || exit 1
