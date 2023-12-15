@@ -14,6 +14,14 @@ If you prefer not using a package manager or Docker, then the easiest and prefer
 curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
 ```
 
+### Beta release
+
+#### Install on macOS / Unix / Linux
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh -s -- --beta
+```
+
 ### Nightly release
 
 #### Install on macOS / Unix / Linux
