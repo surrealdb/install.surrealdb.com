@@ -4,7 +4,7 @@ rm -rf code.zip
 zip -r --symlinks code.zip . -x '*.git*'
 aws s3 cp --region us-east-1 code.zip s3://deploy.surrealdb.com/install-surrealdb-com.zip
 aws lambda --region us-east-1 update-function-code --function-name install-surrealdb-com --s3-bucket deploy.surrealdb.com --s3-key install-surrealdb-com.zip && sleep 3
-aws lambda --region us-east-1 update-function-configuration --function-name install-surrealdb-com --runtime nodejs14.x --handler index.main --timeout 5 --memory-size 128 && sleep 3
+aws lambda --region us-east-1 update-function-configuration --function-name install-surrealdb-com --runtime nodejs20.x --handler index.main --timeout 5 --memory-size 128 && sleep 3
 ARN=$(aws lambda --region us-east-1 publish-version --function-name install-surrealdb-com | jq -r ".FunctionArn")
 rm -rf code.zip
 
