@@ -22,6 +22,14 @@ curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh
 curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh -s -- --beta
 ```
 
+### Alpha release
+
+#### Install on macOS / Unix / Linux
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://install.surrealdb.com | sh -s -- --alpha
+```
+
 ### Nightly release
 
 #### Install on macOS / Unix / Linux
