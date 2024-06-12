@@ -18,6 +18,8 @@ VERSION=""
 
 BETA=false
 
+ALPHA=false
+
 NIGHTLY=false
 
 INTERACTIVE=false
@@ -56,6 +58,9 @@ install() {
             -n|--nightly)
                 NIGHTLY=true
                 ;;
+            -a|--alpha)
+                ALPHA=true
+                ;;
             -b|--beta)
                 BETA=true
                 ;;
@@ -84,11 +89,19 @@ install() {
         if [ "$BETA" = true ]; then
             err "Error: select either the beta release or the nightly release"
         fi
+
+        if [ "$ALPHA" = true ]; then
+            err "Error: select either the alpha release or the nightly release"
+        fi
     fi
 
     if [ "$BETA" = true ]; then
         if [ "$VERSION" != "" ]; then
             err "Error: select either a version or the beta release"
+        fi
+
+        if [ "$ALPHA" = true ]; then
+            err "Error: select either the alpha release or the beta release"
         fi
     fi
 
@@ -132,11 +145,18 @@ install() {
 
         _ver="nightly"
 
+    elif [ "$ALPHA" = true ]; then
+
+        echo "Fetching the latest alpha version..."
+
+        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/alpha.txt" "Error: could not fetch the latest SurrealDB alpha version")
+
     elif [ "$BETA" = true ]; then
 
         echo "Fetching the latest beta version..."
 
-        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/beta.txt" "Error: could not fetch the latest SurrealDB beta version number")
+        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/beta.txt" "Error: could not fetch the latest SurrealDB beta version")
+
 
     elif [ "$VERSION" != "" ]; then
 
@@ -148,7 +168,7 @@ install() {
 
         echo "Fetching the latest database version..."
 
-        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/latest.txt" "Error: could not fetch the latest SurrealDB release version number")
+        _ver=$(fetch "$_cmd" "$SURREALDB_ROOT/latest.txt" "Error: could not fetch the latest SurrealDB release version")
 
     fi
 
