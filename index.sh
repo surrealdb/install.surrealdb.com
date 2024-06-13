@@ -241,7 +241,7 @@ install() {
     mkdir -p "$_loc" 2>/dev/null
 
     if [ ! -d "$_loc" ] || ! touch "$_loc/surreal" 2>/dev/null; then
-        if [ "$INTERACTIVE" == true ]; then
+        if [ "$INTERACTIVE" = true ]; then
             echo ""
             read -p "Where would you like to install the 'surreal' binary [~/.surrealdb]? " _loc
             _loc=${_loc:-~/.surrealdb} && _loc=$(expand "$_loc")
