@@ -8,6 +8,15 @@ If you prefer not using a package manager or Docker, then the easiest and prefer
 
 ### Latest release
 
+1. Download the SurrealDB installation package by executing the following command in your terminal or command prompt:
+#### Install on Windows
+```bash
+curl -O https://install.surrealdb.com/surreal-v1.3.1-windows-amd64.tar.gz
+```
+2. After downloading the package, locate the downloaded ZIP folder and unzip it manually, or extract its contents using the following command:
+```bash
+tar -xf surreal-v1.3.1-windows-amd64.tar.gz
+```
 #### Install on macOS / Unix / Linux
 
 ```bash
