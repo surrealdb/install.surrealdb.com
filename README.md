@@ -6,6 +6,10 @@ This repository houses the install script located at [install.surrealdb.com](htt
 
 If you prefer not using a package manager or Docker, then the easiest and preferred way to get going with SurrealDB is to run one of the following commands in your terminal.
 
+To install SurrealDB on Windows follow the instructions in the [windows.surrealdb.com](https://github.com/surrealdb/windows.surrealdb.com) repository.
+
+To install SurrealDB on macOS using Homebrew folow the instructions in the [homebrew-tap](https://github.com/surrealdb/homebrew-tap) repository.
+
 ### Latest release
 
 #### Install on macOS / Unix / Linux
